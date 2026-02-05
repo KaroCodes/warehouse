@@ -42,7 +42,7 @@ function App() {
             <OrbitControls
                 ref={controlsRef}
                 enableZoom={true}
-                maxDistance={20}
+                maxDistance={50}
                 minDistance={1}
                 minPolarAngle={-Math.PI / 2}  // Limit to 45 degrees to the left
                 maxPolarAngle={Math.PI / 2} />
