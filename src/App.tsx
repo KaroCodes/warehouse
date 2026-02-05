@@ -4,12 +4,13 @@ import './App.css'
 import { OrbitControls } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/Addons.js'
 import { Mesh } from 'three'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
 
 function App() {
-    const gltf = useLoader(GLTFLoader, '/warehouse/warehouse.gltf')
+    const gltf = useLoader(GLTFLoader, '/warehouse/warehouse.glb')
     const [isInit, setIsInit] = useState(false);
-
+    const controlsRef = useRef(null)
 
     useEffect(() => {
         gltf.scene.traverse(child => {
@@ -24,16 +25,27 @@ function App() {
         setIsInit(true)
     }, [gltf]);
 
+    // useEffect(() => {
+    //     const controls = controlsRef.current;
+    //     if (!controls) return;
+    //     console.log(controls)
+    // }, [controlsRef])
 
     return (
-        <Canvas camera={{ position: [0, 20, 0] }}>
+        <Canvas camera={{
+            position: [
+                10.538409098380566,
+                6.236441032675502,
+                -15.81292942250517
+            ]
+        }}>
             <OrbitControls
+                ref={controlsRef}
                 enableZoom={true}
                 maxDistance={20}
                 minDistance={1}
                 minPolarAngle={-Math.PI / 2}  // Limit to 45 degrees to the left
                 maxPolarAngle={Math.PI / 2} />
-
             <ambientLight intensity={Math.PI / 4} />
             {/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} /> */}
             <mesh position={[10, 10, 10]}>
